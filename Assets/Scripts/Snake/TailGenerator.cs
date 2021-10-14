@@ -5,13 +5,15 @@ public class TailGenerator : MonoBehaviour
 {
     [SerializeField] Segment _segmentTemplate;
 
-    public List<Segment> Genearate(int count)
+    public List<Segment> Genearate(int count, Color color)
     {
         List<Segment> tail = new List<Segment>();
 
         for (int i = 0; i < count; i++)
         {
-            tail.Add(Instantiate(_segmentTemplate, transform));
+            Segment segment = Instantiate(_segmentTemplate, transform);
+            segment.gameObject.GetComponent<Renderer>().material.color = color;
+            tail.Add(segment);
         }
 
         return tail;

@@ -53,19 +53,43 @@
     <UnityVersion>2020.3.19f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Snake\Snake.cs" />
+    <Compile Include="Assets\Scripts\Bonus\Bonus.cs" />
     <Compile Include="Assets\Scripts\Snake\SnakeHead.cs" />
-    <Compile Include="Assets\Scripts\Snake\SnakeInput.cs" />
+    <Compile Include="Assets\Scripts\Camera\CameraFollower.cs" />
     <Compile Include="Assets\Scripts\Snake\TailGenerator.cs" />
     <Compile Include="Assets\Scripts\Snake\Segment.cs" />
-    <Compile Include="Assets\Scripts\DeathTrigger\DeathTrigger.cs" />
-    <Compile Include="Assets\Scripts\Food\Food.cs" />
-    <Compile Include="Assets\Scripts\Bonus\Bonus.cs" />
+    <Compile Include="Assets\Scripts\Snake\SnakeInput.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraConstantWidth.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraFollower.cs" />
     <Compile Include="Assets\Scripts\LevelSpawner.cs" />
     <Compile Include="Assets\Scripts\Food\RandomMaterial.cs" />
-    <Compile Include="Assets\Scripts\SpawnSettings.cs" />
+    <Compile Include="Assets\Scripts\Food\Food.cs" />
+    <Compile Include="Assets\Scripts\Snake\Snake.cs" />
+    <Compile Include="Assets\Scripts\LevelSettings\SpawnSettings.cs" />
+    <Compile Include="Assets\Scripts\DeathTrigger\DeathTrigger.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\Water\WaterArea.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\Water\WaterMaterialSwitcher.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\FPSCounter.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\CameraDepthSlider.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\TouchRotator.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\Water\WaterPropertyBlockSetter.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\AnimationStarter.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\CameraRotator.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\FPSUI.cs" />
+    <Compile Include="Assets\Scripts\ColorSwitch\ColorSwitcher.cs" />
+    <Compile Include="Assets\Scripts\LevelMenager.cs" />
+    <Compile Include="Assets\Scripts\Finish.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Flames Of The Phoenix\READ_ME.txt" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterTwoSide\Height\DiffuseColorHeightWaterTwoSide.shader" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterOpaque\DiffuseWaterOpaque.shader" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterTwoSide\Depth\DiffuseColorDepthWaterTwoSide.shader" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterTwoSide\Depth\DiffuseDepthWaterTwoSide.shader" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterOpaque\Height\DiffuseHeightWater.shader" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterTwoSide\Height\DiffuseHeightWaterTwoSide.shader" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterOpaque\Depth\DiffuseDepthWater.shader" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterOpaque\Height\DiffuseColorHeightWater.shader" />
+    <None Include="Assets\MobileDepthWater\Shaders\WaterOpaque\Depth\DiffuseColorDepthWater.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -280,6 +304,9 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>D:\Unity\2020.3.19f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\Plugins\Demigiant\DOTween\DOTween.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>D:\Unity\2020.3.19f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -664,6 +691,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="DOTween.Modules.csproj">
+      <Project>{CE59FF76-95A7-BBCE-2758-0AAA11CD72A9}</Project>
+      <Name>DOTween.Modules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

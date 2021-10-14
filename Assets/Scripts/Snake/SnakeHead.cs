@@ -9,7 +9,9 @@ public class SnakeHead : MonoBehaviour
 
     public event UnityAction DeathBlockCollided;
     public event UnityAction BonusCollected;
-    public event UnityAction<int> FoodCollected;
+    public event UnityAction<int,Color> FoodCollected;
+    public event UnityAction<Color> ColorSwitched;
+    public event UnityAction FinishColided;
 
     private void Start()
     {
@@ -25,16 +27,26 @@ public class SnakeHead : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out Food food))
         {
-            FoodCollected?.Invoke(1);
+            FoodCollected?.Invoke(1, food.GetComponent<Renderer>().material.color);
+            food.gameObject.SetActive(false);
+
         }
         else if (other.gameObject.TryGetComponent(out Bonus bonus))
         {
             BonusCollected?.Invoke();
+            bonus.gameObject.SetActive(false);
         }
         else if (other.gameObject.TryGetComponent(out DeathTrigger deathTrigger))
         {
             DeathBlockCollided?.Invoke();
-            Time.timeScale = 0;
+        }
+        else if(other.TryGetComponent(out ColorSwitcher colorSwitcher))
+        {
+            ColorSwitched?.Invoke(colorSwitcher._currentColor);
+        }
+        else if (other.TryGetComponent(out Finish finish))
+        {
+            FinishColided?.Invoke();
         }
     }
 }
