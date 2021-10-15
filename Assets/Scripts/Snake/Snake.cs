@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 [RequireComponent(typeof(TailGenerator))]
 [RequireComponent(typeof(SnakeInput))]
@@ -11,6 +12,7 @@ public class Snake : MonoBehaviour
     [SerializeField] private GameObject _bonusUI;
     [SerializeField] private int _tailSize;
     [SerializeField] private SnakeHead _head;
+    [SerializeField] private Vacuum _vacuum;
     [SerializeField] private float _speed;
     [SerializeField] private float _tailSpringiness;
     [SerializeField] private Text _textCountBonus;
@@ -18,6 +20,8 @@ public class Snake : MonoBehaviour
     [SerializeField] private Text _tailCount;
     [SerializeField] private float _durationScaleShake;
     [SerializeField] private float _strengthScaleShake;
+    [SerializeField] private int _countBonusForFavir;
+    [SerializeField] private float _favirDuration;
 
     private List<Segment> _tail;
     private TailGenerator _tailGenerator;
@@ -25,6 +29,8 @@ public class Snake : MonoBehaviour
     private int _countBonus;
     private int _currentLevel;
     private Renderer _headRenderer;
+    private int _favirCount = 0;
+    public bool _favirActive = false;
 
     public event UnityAction<int> SizeUpdated;
     public event UnityAction TailIsEmpty;
@@ -50,13 +56,18 @@ public class Snake : MonoBehaviour
     {
         _currentLevel = PlayerPrefs.GetInt("level");
         if (_currentLevel == 0)
+        {
             _currentLevel++;
+            PlayerPrefs.SetInt("level", _currentLevel);
+        }
+
         _textCurrentLevel.text = "LEVEL " + _currentLevel.ToString();
     }
 
     private void OnEnable()
     {
         _head.FoodCollected += OnFoodCollided;
+        _vacuum.FoodCollected += OnFoodCollided;
         _head.BonusCollected += OnBonusCollected;
         _head.ColorSwitched += OnColorSwitched;        
     }
@@ -64,6 +75,7 @@ public class Snake : MonoBehaviour
     private void OnDisable()
     {
         _head.FoodCollected -= OnFoodCollided;
+        _vacuum.FoodCollected -= OnFoodCollided;
         _head.BonusCollected -= OnBonusCollected;
         _head.ColorSwitched -= OnColorSwitched;        
     }
@@ -71,8 +83,15 @@ public class Snake : MonoBehaviour
     private void FixedUpdate()
     {
         Move(_head.transform.position + _head.transform.forward * _speed * Time.fixedDeltaTime);
-
-        _head.transform.position = _input.GetDiractionToClick(_head.transform.position);
+                
+        if (_favirActive)
+        {
+            _head.transform.position = _input.GetDiractionAtFavir(_head.transform.position);
+        }
+        else
+        {
+            _head.transform.position = _input.GetDiractionToClick(_head.transform.position);
+        }
     }
 
     private void Move(Vector3 nextPosition)
@@ -104,11 +123,30 @@ public class Snake : MonoBehaviour
         _textCountBonus.text = _countBonus.ToString();
 
         ShakeUIElement(_bonusUI);
+
+        _favirCount++;
+
+        if (_favirCount == _countBonusForFavir)
+        {
+            _countBonus = 0;
+            _textCountBonus.text = _countBonus.ToString();
+            StartCoroutine(ActivateFavir());
+        }
+    }
+
+    private IEnumerator ActivateFavir()
+    {
+        _favirActive = true;
+        yield return new WaitForSeconds(_favirDuration);
+        _favirActive = false;
+        _favirCount = 0;
     }
 
     private void OnFoodCollided(int foodSize, Color color)
     {
-        if (color == _headRenderer.material.color)
+        _favirCount = 0;
+
+        if (color == _headRenderer.material.color || (color != _headRenderer.material.color && _favirActive))
         {
             _tail.AddRange(_tailGenerator.Genearate(foodSize, _headRenderer.material.color));
             SizeUpdated?.Invoke(_tail.Count);            
@@ -135,6 +173,9 @@ public class Snake : MonoBehaviour
 
     private void ShakeUIElement(GameObject gameObject)
     {
-        gameObject.GetComponent<RectTransform>().DOShakeScale(_durationScaleShake, _strengthScaleShake);
+        if (_favirActive)
+            gameObject.GetComponent<RectTransform>().DOShakeScale(_durationScaleShake / _input.GetAccelerationValue(), _strengthScaleShake);
+        else
+            gameObject.GetComponent<RectTransform>().DOShakeScale(_durationScaleShake, _strengthScaleShake);
     }
 }

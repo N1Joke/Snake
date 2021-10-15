@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{0A8C51F2-01B3-F867-A6B8-B5F53BD1179C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -55,29 +56,30 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Bonus\Bonus.cs" />
     <Compile Include="Assets\Scripts\Snake\SnakeHead.cs" />
+    <Compile Include="Assets\Scripts\LevelMenager.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraFollower.cs" />
     <Compile Include="Assets\Scripts\Snake\TailGenerator.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\FPSUI.cs" />
     <Compile Include="Assets\Scripts\Snake\Segment.cs" />
     <Compile Include="Assets\Scripts\Snake\SnakeInput.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraConstantWidth.cs" />
     <Compile Include="Assets\Scripts\LevelSpawner.cs" />
     <Compile Include="Assets\Scripts\Food\RandomMaterial.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\AnimationStarter.cs" />
     <Compile Include="Assets\Scripts\Food\Food.cs" />
-    <Compile Include="Assets\Scripts\Snake\Snake.cs" />
-    <Compile Include="Assets\Scripts\LevelSettings\SpawnSettings.cs" />
-    <Compile Include="Assets\Scripts\DeathTrigger\DeathTrigger.cs" />
-    <Compile Include="Assets\MobileDepthWater\Scripts\Water\WaterArea.cs" />
     <Compile Include="Assets\MobileDepthWater\Scripts\Water\WaterMaterialSwitcher.cs" />
-    <Compile Include="Assets\MobileDepthWater\Scripts\FPSCounter.cs" />
+    <Compile Include="Assets\Scripts\Snake\Snake.cs" />
     <Compile Include="Assets\MobileDepthWater\Scripts\CameraDepthSlider.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\FPSCounter.cs" />
+    <Compile Include="Assets\Scripts\LevelSettings\SpawnSettings.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\CameraRotator.cs" />
+    <Compile Include="Assets\Scripts\ColorSwitch\ColorSwitcher.cs" />
+    <Compile Include="Assets\Scripts\Finish.cs" />
+    <Compile Include="Assets\MobileDepthWater\Scripts\Water\WaterArea.cs" />
     <Compile Include="Assets\MobileDepthWater\Scripts\TouchRotator.cs" />
     <Compile Include="Assets\MobileDepthWater\Scripts\Water\WaterPropertyBlockSetter.cs" />
-    <Compile Include="Assets\MobileDepthWater\Scripts\AnimationStarter.cs" />
-    <Compile Include="Assets\MobileDepthWater\Scripts\CameraRotator.cs" />
-    <Compile Include="Assets\MobileDepthWater\Scripts\FPSUI.cs" />
-    <Compile Include="Assets\Scripts\ColorSwitch\ColorSwitcher.cs" />
-    <Compile Include="Assets\Scripts\LevelMenager.cs" />
-    <Compile Include="Assets\Scripts\Finish.cs" />
+    <Compile Include="Assets\Scripts\DeathTrigger\DeathTrigger.cs" />
+    <Compile Include="Assets\Scripts\Vacuum.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Flames Of The Phoenix\READ_ME.txt" />
@@ -680,14 +682,14 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
